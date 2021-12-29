@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarketIO.WCF.Contracts\MarketIO.WCF.Contracts.csproj" />
+    <ProjectReference Include="..\WCFSettings\WCFSettings.csproj" />
+    <ProjectReference Include="..\WCFStandardClient\WCFStandardClient.csproj" />
+  </ItemGroup>
+
+</Project>
