@@ -10,6 +10,9 @@ namespace MarketIO.WCF.Contracts
         {
             [OperationContract]
             List<Product> GetProducts();
+            [OperationContract]
+            Product AddProduct(int id, string name, double price);
+
         }
     
 }

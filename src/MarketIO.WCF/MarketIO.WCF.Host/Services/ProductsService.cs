@@ -20,6 +20,19 @@ namespace MarketIO.WCF.Host.Services
                 Price = 213
             }
         };
+
+        public Product AddProduct(int id , string name, double price)
+        {
+            var product = new Product
+            {
+                Id = id,
+                Name = name,
+                Price = price
+            };
+            _repository.Add(product);
+            return product;
+        }
+
         public List<Product> GetProducts() => _repository;
     }
 }

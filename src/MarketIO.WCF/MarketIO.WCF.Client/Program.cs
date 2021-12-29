@@ -13,7 +13,10 @@ namespace MarketIO.WCF.Client
             WCFHostSettings settings = ProductsManager.BuildClientSettings(hostname);
             static void log(string value) => Console.WriteLine(value);
             ProductsManager.InvokeProductServiceUsingWcf(settings, log);
+            string rawSoapResponse = ProductsManager.InvokeProductServiceUsingWebRequest(settings.basicHttpAddress);
+            Console.WriteLine($"Http SOAP Response:\n{rawSoapResponse}");
             Console.ReadLine();
+
         }
     }
 }

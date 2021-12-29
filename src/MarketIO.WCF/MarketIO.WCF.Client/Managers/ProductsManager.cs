@@ -33,6 +33,49 @@ namespace MarketIO.WCF.Client.Managers
 
         }
 
+        /// <summary>
+        /// Creates a basic web request to the specified endpoint,
+        /// sends the SOAP request and reads the response
+        /// </summary>
+        public static string InvokeProductServiceUsingWebRequest(Uri address)
+        {
+            string _soapEnvelopeContent =
+            @"<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'>
+                <soapenv:Body>
+                    <AddProduct xmlns='http://tempuri.org/'>
+                        <id>1</id>
+                        <name>Product Name</name>
+                        <price>123</price>
+                    </AddProduct>
+                </soapenv:Body>
+            </soapenv:Envelope>";
+
+            // Prepare the raw content
+            var utf8Encoder = new UTF8Encoding();
+            byte[] bodyContentBytes = utf8Encoder.GetBytes(_soapEnvelopeContent);
+
+            // Create the web request
+            var webRequest = System.Net.WebRequest.Create(address);
+            webRequest.Headers.Add("SOAPAction", "http://tempuri.org/IProductsService/AddProduct");
+            webRequest.ContentType = "text/xml";
+            webRequest.Method = "POST";
+            webRequest.ContentLength = bodyContentBytes.Length;
+
+            // Append the content
+            System.IO.Stream requestContentStream = webRequest.GetRequestStream();
+            requestContentStream.Write(bodyContentBytes, 0, bodyContentBytes.Length);
+
+            // Send the request and read the response
+            using (System.IO.Stream responseStream = webRequest.GetResponse().GetResponseStream())
+            {
+                using (System.IO.StreamReader responsereader = new System.IO.StreamReader(responseStream))
+                {
+                    string soapResponse = responsereader.ReadToEnd();
+                    return soapResponse;
+                }
+            }
+        }
+
 
     }
 }
